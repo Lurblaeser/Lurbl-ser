@@ -1,0 +1,152 @@
+{
+	"info": {
+		"_lurblaeser_id": "5668c136-139d-4d7b-90b7-68c2f3ad1f93",
+		"name": "Websocket API",
+        "method": "stomp+sockjs",
+        "url": {
+            "raw": "wss://localhost:8080/ws",
+            "protocol": "wss"
+        }
+	},
+	"events": [
+        {
+			"name": "raw",
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": []
+				},
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"Alexander\"\r\n}"
+				},
+                "path": "/app/addUserRaw"
+			}
+		},
+        {
+			"name": "raw - JSON",
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": []
+				},
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer 1234",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"Alexander\"\r\n}",
+                    "options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+                "path": "/app/addUserRawJson"
+			}
+		},
+        {
+			"name": "raw - XML",
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": []
+				},
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer 1234",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "<user>\r\n  <name>Alexander</name>\r\n</user>",
+					"options": {
+						"raw": {
+							"language": "xml"
+						}
+					}
+				},
+                "path": "/app/addUserRawXml"
+			}
+		},
+        {
+			"name": "formdata",
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": []
+				},
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer 1234",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "Alexander",
+							"type": "text"
+						}
+					]
+				},
+                "path": "/app/addUserFormData"
+			}
+		},
+        {
+			"name": "formdata",
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": []
+				},
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer 1234",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "name",
+							"value": "Alexander",
+							"type": "text"
+						}
+					]
+				},
+                "path": "/app/addUserFormDataUrlencoded"
+			}
+		}
+	],
+	"subscriptions": [
+		{
+			"name": "/topic/userList"
+		},
+		{
+			"name": "/topic/userJoined"
+		},
+		{
+			"name": "/topic/userLeft"
+		},
+		{
+			"name": "/topic/message"
+		}
+	]
+}
