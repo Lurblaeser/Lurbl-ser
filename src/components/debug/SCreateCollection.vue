@@ -1,6 +1,6 @@
 <template>
-      <TransitionRoot appear :show="isSettingsDialogOpen" as="template">
-      <Dialog as="div" @close="isSettingsDialogOpen = false" class="relative z-10">
+      <TransitionRoot appear :show="isDialogOpen" as="template">
+      <Dialog as="div" @close="isDialogOpen = false" class="relative z-10">
         <TransitionChild
           as="template"
           enter="duration-300 ease-out"
@@ -43,7 +43,7 @@
                   <button
                     type="button"
                     class="inline-flex justify-center rounded-md border border-transparent bg-red-100 px-4 py-2 text-sm font-medium text-red-900 hover:bg-red-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2"
-                    @click="isSettingsDialogOpen = false"
+                    @click="isDialogOpen = false"
                   >
                     Close
                   </button>
@@ -77,12 +77,12 @@ export default defineComponent({
   emits: ['update:open'],
   setup(props, { emit }) {
     const { open } = toRefs(props)
-    const isSettingsDialogOpen = ref(open.value)
+    const isDialogOpen = ref(open.value)
     watch(() => open.value, (newValue) => {
-      isSettingsDialogOpen.value = newValue
+      isDialogOpen.value = newValue
     })
 
-    watch(() => isSettingsDialogOpen.value, (newValue) => {
+    watch(() => isDialogOpen.value, (newValue) => {
       emit('update:open', newValue)
     })
 
@@ -100,10 +100,10 @@ export default defineComponent({
         }
       })
 
-      isSettingsDialogOpen.value = false
+      isDialogOpen.value = false
     }
 
-    return { isSettingsDialogOpen, createCollection, collectionName };
+    return { isDialogOpen, createCollection, collectionName };
   }
 })
 </script>

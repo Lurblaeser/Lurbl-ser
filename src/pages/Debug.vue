@@ -197,12 +197,12 @@
                       Subscribed Topics
                     </div>
                     <div
-                      v-for="(subscription, index) in collections.getActiveCollection?.subscriptions"
+                      v-for="(subscription) in collections.getActiveCollection?.subscriptions"
                       :key="subscription.name"
                       class="flex w-full items-center bg-gray-200/20 px-2 py-1"
                     >
                       <div class="flex-1">
-                        <input type="text" v-model="subscription.name" class="px-2 py-1 rounded-md bg-gray-100 focus:ring-1" @keydown="unsubscribeTopic(subscription.name)" />
+                        <input type="text" v-model="subscription.name" class="px-2 py-1 rounded-md bg-gray-100 focus:ring-1 w-full" @keydown="unsubscribeTopic(subscription.name)" />
                       </div>
                       <div class="flex justify-end items-center">
                         <SButton
@@ -254,8 +254,6 @@
                           event.action === 'sending' ? '-rotate-45': 'rotate-[135deg]'
                         ]"
                       />
-                      <!-- <TrendingUpIcon class="h-5 w-5" />
-                      <InformationCircleIcon class="h-5 w-5" /> -->
                     </div>
                     <div class="w-44 px-2">
                       {{ event.date }}
@@ -275,6 +273,7 @@
       </TabGroup>
     </div>
     <SMethodSettingsDialog v-model:open="isSettingsDialogOpen" />
+    <!--<SEventsRenameDialog v-model:open="isEventsRenameDialogOpen" />-->
   </div>
 </template>
 
@@ -437,6 +436,7 @@ export default defineComponent({
         this.socket.connect()
       } else {
         this.socket.disconnect()
+        this.subscriptions.$reset()
       }
     }
   },
