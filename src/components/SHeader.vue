@@ -119,7 +119,8 @@
           tabindex="-1"
           data-headlessui-state=""
           type="button"
-          v-for="option in options"
+          v-for="(option, index) in options"
+          :key="index"
         >
           {{ option.name }}
         </button>
@@ -128,13 +129,15 @@
     <div class="flex-1 flex align-items-center justify-center font-bold px-5 py-2 rounded-md"></div>
   </div>
   <SCreateCollection v-model:open="isCreateCollectionDialogOpen" />
+  <SRenameCollection v-model:open="isRenameCollectionDialogOpen" :collection-index="selectedRenameCollectionIndex" />
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ref } from "vue";
+import { computed, defineComponent, Ref, ref } from "vue";
 import { useCollections } from '../store/collections'
 
 import SCreateCollection from '../components/debug/SCreateCollection.vue'
+import SRenameCollection from '../components/debug/SRenameCollection.vue'
 import SButton from "./generic/SButton.vue";
 import SContextMenu, { Item } from "./generic/SContextMenu.vue";
 
@@ -142,6 +145,7 @@ export default defineComponent({
   name: "s-header",
   components: {
     SCreateCollection,
+    SRenameCollection,
     SButton,
     SContextMenu
   },
@@ -158,6 +162,40 @@ export default defineComponent({
   setup() {
     const collections = useCollections();
 
+    let isCreateCollectionDialogOpen = ref(false)
+
+    const openCreateCollectionDialog = function() {
+      // REFACTOR: Investigate if there is an better way of preventing switching of collection and closing the popup when clicking the button 
+      const tempMethod = collections.getActiveCollectionIndex
+      isCreateCollectionDialogOpen.value = true
+
+      // NextTick wasn't good enough
+      setTimeout(() => {
+        collections.activeCollectionIndex = tempMethod
+      }, 1)
+    }
+
+    let isRenameCollectionDialogOpen = ref(false)
+    const selectedRenameCollectionIndex = ref(null) as Ref<null | number>
+
+    const openRenameCollectionDialog = function(index: number) {
+      // REFACTOR: Investigate if there is an better way of preventing switching of collection and closing the popup when clicking the button 
+      const tempMethod = collections.getActiveCollectionIndex
+      isRenameCollectionDialogOpen.value = true
+
+      selectedRenameCollectionIndex.value = index
+
+      // NextTick wasn't good enough
+      setTimeout(() => {
+        collections.activeCollectionIndex = tempMethod
+      }, 1)
+    }
+
+    let isImportCollectionDialogOpen = ref(false)
+    const openImportCollectionDialog = function() {
+      isImportCollectionDialogOpen.value = true
+    }
+
     const selectedCollection = computed({
       get: () => collections.getActiveCollectionIndex,
       set: (val: number) => {
@@ -169,7 +207,7 @@ export default defineComponent({
       {
         label: 'Rename',
         event: (index: number) => {
-          alert(`Not implemented ${index}`)
+          openRenameCollectionDialog(index);
         }
       },
       {
@@ -186,24 +224,6 @@ export default defineComponent({
       }
     ]
 
-    let isCreateCollectionDialogOpen = ref(false)
-
-    const openCreateCollectionDialog = function() {
-      // REFACTOR: Investigate if there is an better way of preventing switching of collection and closing the popup when clicking the button 
-      const tempMethod = collections.getActiveCollectionIndex
-      isCreateCollectionDialogOpen.value = true
-
-      // NextTick wasn't good enough
-      setTimeout(() => {
-        collections.activeCollectionIndex = tempMethod
-      }, 1)
-    }
-
-    let isImportCollectionDialogOpen = ref(false)
-    const openImportCollectionDialog = function() {
-      isImportCollectionDialogOpen.value = true
-    }
-
     return {
       collections,
       selectedCollection,
@@ -212,6 +232,9 @@ export default defineComponent({
       openCreateCollectionDialog,
       isImportCollectionDialogOpen,
       openImportCollectionDialog,
+      isRenameCollectionDialogOpen,
+      openRenameCollectionDialog,
+      selectedRenameCollectionIndex,
     }
   }
 });
