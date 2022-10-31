@@ -8,7 +8,7 @@
   },
   "package": {
     "productName": "Lurblaeser",
-    "version": "0.0.4"
+    "version": "0.0.5"
   },
   "tauri": {
     "allowlist": {
@@ -72,7 +72,7 @@
         "https://gist.github.com/AlexanderYW/16ec165a3bdbc34ce7ba5ecc37cdb01b/raw"
       ],
       "dialog": true,
-      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDdGMzM4OTIwMTI4OTM2RTYKUldUbU5va1NJSWt6ZitkNHhiQlVoeXNTSEM0QkN3NCtRYm05YWJZc2JxTURrZ3c3ZVpzcDdyVVUK"
+      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDQxMzI3MjZCQzFGOTY0MgpSV1JDbGgrOEppY1RCR1gyT2ZUTEpiYmlqRkRkZlg4MEE0VHBBNndjbTBqZjVGZ1BpbVJrMjk5ZAo="
     },
     "windows": [
       {

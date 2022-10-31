@@ -1,6 +1,6 @@
 [package]
 name = "app"
-version = "0.0.4"
+version = "0.0.5"
 description = "Lurblæser is an websocket API platform. To design, to build and to test, your next websocket api."
 authors = ["you"]
 license = ""
