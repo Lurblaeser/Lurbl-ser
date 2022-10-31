@@ -128,12 +128,12 @@
         <Splitter layout="vertical" class="w-full h-full overflow-hidden">
           <SplitterPanel :size="1" class="overflow-hidden" :min-size="40">
             <Splitter class="w-full h-full overflow-hidden">
-              <SplitterPanel class="flex" :size="10" :min-size="10">
+              <SplitterPanel class="flex max-w-[80%]" :size="10" :min-size="10">
                 <TabPanels class="w-full h-full overflow-hidden">
                   <TabPanel
                     v-for="(item, index) in collections.getActiveCollection?.events"
                     :key="index"
-                    class="w-full h-full overflow-hidden"
+                    class="relative w-full h-full overflow-hidden"
                   >
                     <div class="w-full border-top-1 surface-border overflow-auto px-2">
                       <div class="flex py-2">
@@ -165,6 +165,15 @@
                           :extensions="extensions"
                         />
                       </div>
+                    </div>
+                    <div class="absolute right-1 bottom-1">
+                      <a
+                        title="Format JSON"
+                        class="inline-block text-black p-1 cursor-pointer rounded-md transition-all bg-slate-100 hover:bg-slate-200 active:bg-slate-300"
+                        @click="getCode = formatJson(getCode)"
+                      >
+                        <document-check-icon class="h-5 w-5" />
+                      </a>
                     </div>
                   </TabPanel>
                 </TabPanels>
@@ -241,7 +250,7 @@
           <SplitterPanel :size="1" class="h-full overflow-hidden">
             <div class="h-full overflow-hidden">
               <div class="w-full border-top-1 surface-border h-full overflow-auto">
-                <div class="divide-y divide-gray-500/20 border border-gray-500/20">
+                <div class="flex flex-col-reverse justify-end divide-y divide-gray-500/20 border border-gray-500/20">
                   <div
                     v-for="(event, index) in events.eventList"
                     :key="index"
@@ -518,6 +527,16 @@ export default defineComponent({
       }
     });
 
+    // TODO: Enable it to prettify/format json object as well.
+    const formatJson = (jsonText: string, indentation = 2) => {
+      try {
+        return JSON.stringify(JSON.parse(jsonText), null, indentation)  
+      } catch {
+        alert('JSON is not valid.')
+        return jsonText
+      }
+    }
+
     const sendData = () => {
       socket.value.event(
         collections.getActiveCollectionEvent?.request.path!,
@@ -555,6 +574,7 @@ export default defineComponent({
       destinationPath,
       getActiveCollectionMethod,
       getCode,
+      formatJson,
       sendData,
       socket,
       isConnected,

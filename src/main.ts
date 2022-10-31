@@ -83,12 +83,13 @@ app.component('ChevronUpDownIcon', ChevronUpDownIcon)
 app.component('CodeBracketIcon', CodeBracketIcon)
 
 //// Outline
-import { PlusIcon, ArrowPathIcon, CogIcon, InformationCircleIcon, ArrowRightIcon, TrashIcon } from '@heroicons/vue/24/outline'
+import { PlusIcon, ArrowPathIcon, CogIcon, InformationCircleIcon, ArrowRightIcon, TrashIcon, DocumentCheckIcon } from '@heroicons/vue/24/outline'
 app.component('PlusIcon', PlusIcon)
 app.component('TrashIcon', TrashIcon)
 app.component('ArrowPathIcon', ArrowPathIcon)
 app.component('CogIcon', CogIcon)
 app.component('InformationCircleIcon', InformationCircleIcon)
 app.component('ArrowRightIcon', ArrowRightIcon)
+app.component('DocumentCheckIcon', DocumentCheckIcon)
 
 app.mount('#app')
