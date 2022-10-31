@@ -176,7 +176,7 @@ export default defineComponent({
     }
 
     let isRenameCollectionDialogOpen = ref(false)
-    const selectedRenameCollectionIndex = ref(null) as Ref<null | number>
+    const selectedRenameCollectionIndex = ref(undefined) as Ref<undefined | number>
 
     const openRenameCollectionDialog = function(index: number) {
       // REFACTOR: Investigate if there is an better way of preventing switching of collection and closing the popup when clicking the button 
